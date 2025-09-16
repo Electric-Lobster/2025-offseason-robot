@@ -10,6 +10,11 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {}
 
+
+  public void tankDrive(double left, double right) {
+    //TODO: ADD CONTROL
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
