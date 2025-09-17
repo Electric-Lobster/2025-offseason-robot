@@ -9,7 +9,17 @@ import frc.robot.SubSystems.DriveTrain;
 /** Add your docs here. */
 public final class Constants {
 
-public static class DriveTrain{}
+public static class DrivetrainConstants{}
+
+public static final int FLMotor = 1; 
+
+public static final int FRMotor = 2;
+
+public static final int BLMotor = 3;
+
+public static final int BRMotor = 4;
+
+
 
 } 
 
