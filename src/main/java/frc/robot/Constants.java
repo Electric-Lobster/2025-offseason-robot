@@ -23,9 +23,6 @@ public final class Constants  {
     
     
     //Currents limits 
-    /** The maxium current our motor can take with our permission  
-     * 
-     */
     public static final int stallCurrentLimit = 55;
     
     
