@@ -7,7 +7,6 @@ package frc.robot.SubSystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -44,22 +43,22 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     FLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit,freeCurrentLimit);
-    FLConfig.closedLoop.pid(leftPidControllerId[0],leftPidControllerId[1],leftPidControllerId[2]);
-    FLConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    FLConfig.closedLoop.pid(leftPidController[0],leftPidController[1],leftPidController[2]);
+    FLConfig.encoder.countsPerRevolution(countsPerRevolution);
     FLDrive.configure(FLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     
     FRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
-    FRConfig.closedLoop.pid(rightPidControllerId[0],rightPidControllerId[1],rightPidControllerId[2]);
-    FRConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    FRConfig.closedLoop.pid(rightPidController[0],rightPidController[1],rightPidController[2]);
+    FRConfig.encoder.countsPerRevolution(countsPerRevolution);
     FRDrive.configure(FRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     BLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit).follow(FLDrive);
-    BLConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    BLConfig.encoder.countsPerRevolution(countsPerRevolution);
     BLDrive.configure(BLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     BRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit).follow(FRDrive);
-    BRConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    BRConfig.encoder.countsPerRevolution(countsPerRevolution);
     BRDrive.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // Encoder Access
@@ -75,6 +74,11 @@ public class DriveTrain extends SubsystemBase {
 
 
   public void tankDrive(double left, double right) {
+    //TODO: ADD CONTROL
+  }
+
+
+  public void arcadeDrive(double throttle, double rotation) {
     //TODO: ADD CONTROL
   }
 
