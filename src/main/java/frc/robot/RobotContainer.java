@@ -35,6 +35,9 @@ public class RobotContainer {
 
   private void configureChooser() {
 
+    autoChooser.addRoutine("Test 1: Straight", autoContainer::test1);
+    autoChooser.addRoutine("Test 2: Turn Left", autoContainer::test2);
+
     SmartDashboard.putData(autoChooser);
   }
 
