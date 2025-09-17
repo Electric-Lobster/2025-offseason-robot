@@ -16,12 +16,14 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.Constants.DrivetrainConstants.*;
+
 public class DriveTrain extends SubsystemBase {
   //motors 
-  SparkMax FLDrive = new SparkMax(0, MotorType.kBrushless);
-  SparkMax FRDrive = new SparkMax(0, MotorType.kBrushless);
-  SparkMax BLDrive = new SparkMax(0, MotorType.kBrushless);
-  SparkMax BRDrive = new SparkMax(0, MotorType.kBrushless);
+  SparkMax FLDrive = new SparkMax(FLMotorId, MotorType.kBrushless);
+  SparkMax FRDrive = new SparkMax(FRMotorId, MotorType.kBrushless);
+  SparkMax BLDrive = new SparkMax(BLMotorId, MotorType.kBrushless);
+  SparkMax BRDrive = new SparkMax(BRMotorId, MotorType.kBrushless);
 
   // motor configs 
   SparkMaxConfig FLConfig = new SparkMaxConfig();
@@ -41,23 +43,23 @@ public class DriveTrain extends SubsystemBase {
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    FLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(55, 40);
-    FLConfig.closedLoop.pid(0.1, 0, 0);
-    FLConfig.encoder.countsPerRevolution(0);
+    FLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit,freeCurrentLimit);
+    FLConfig.closedLoop.pid(leftPidControllerId[0],leftPidControllerId[1],leftPidControllerId[2]);
+    FLConfig.encoder.countsPerRevolution(countsPerRevolutionId);
     FLDrive.configure(FLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     
-    FRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(55, 40);
-    FRConfig.closedLoop.pid(0.1, 0, 0);
-    FRConfig.encoder.countsPerRevolution(0);
+    FRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
+    FRConfig.closedLoop.pid(rightPidControllerId[0],rightPidControllerId[1],rightPidControllerId[2]);
+    FRConfig.encoder.countsPerRevolution(countsPerRevolutionId);
     FRDrive.configure(FRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    BLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(55, 40).follow(FLDrive);
-    BLConfig.encoder.countsPerRevolution(0);
+    BLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit).follow(FLDrive);
+    BLConfig.encoder.countsPerRevolution(countsPerRevolutionId);
     BLDrive.configure(BLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    BRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(55, 40).follow(FRDrive);
-    BRConfig.encoder.countsPerRevolution(0);
+    BRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit).follow(FRDrive);
+    BRConfig.encoder.countsPerRevolution(countsPerRevolutionId);
     BRDrive.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // Encoder Access
