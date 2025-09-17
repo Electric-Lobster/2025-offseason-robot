@@ -12,6 +12,9 @@ public class AutoContainer {
 
     DriveTrain driveTrain;
 
+    /**
+     * https://choreo.autos/choreolib/auto-factory/
+     */
     AutoFactory autoFactory = new AutoFactory(
         driveTrain::getPose,
         driveTrain::resetPose,
