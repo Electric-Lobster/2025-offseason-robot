@@ -78,10 +78,29 @@ public class DriveTrain extends SubsystemBase {
     //TODO: ADD CONTROL
   }
 
+  /** Gets encoder distance 
+   * @return the average of the drive encoders
+   */
+  public double getEncoderDistance() {
+
+    double distance = 0;
+
+    distance += FLEncoder.getPosition();
+    distance += FREncoder.getPosition();
+    distance += BREncoder.getPosition();
+    distance += BLEncoder.getPosition();
+
+    distance /= 4.0;
+
+    return distance;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+
 }
 
 
