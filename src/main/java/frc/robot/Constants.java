@@ -25,9 +25,6 @@ public final class Constants  {
     //Currents limits 
     public static final int stallCurrentLimit = 55;
     
-    /** The amount our motor can take without blowing up 
-     * 
-     */
     public static final int freeCurrentLimit = 40;
     
 
