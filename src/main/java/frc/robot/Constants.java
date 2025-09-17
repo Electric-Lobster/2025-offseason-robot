@@ -16,9 +16,6 @@ public final class Constants  {
     
 
     //Motor Id's
-    /**
-     *leftPidControllerId
-     */
     public static final int FLMotorId = 2; 
     public static final int FRMotorId = 7;
     public static final int BLMotorId = 3;
