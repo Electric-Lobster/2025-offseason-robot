@@ -45,10 +45,7 @@ public final class Constants  {
     public static final double[] rightPidControllerId = {0.1,0,0};
     
     
-    //Distance per a pulse for the encoder 
-    /** Gives the distance per a pulse for the encoder 
-     *
-     */
+    //Encoders
     public static final int countsPerRevolutionId = 0;
     }
 
