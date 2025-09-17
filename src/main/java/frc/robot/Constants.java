@@ -46,7 +46,8 @@ public static class DrivetrainConstants{
     /** Gives the distance per a pulse for the encoder 
      *
      */
-    public static final int countsPerRevolutionId = -1/497;}
+    public static final int countsPerRevolutionId = 0;
+    }
 
 
 } 
