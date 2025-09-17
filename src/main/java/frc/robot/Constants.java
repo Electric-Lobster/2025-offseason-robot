@@ -22,6 +22,10 @@ public static final int BRMotor = 6;
 public static final int stallCurrentLimit = 55;
 
 public static final int FreeCurrentLimit = 40;
-} 
 
+public static final double[] leftPidControllerId = {0.1,0,0};
+
+public static final double[] rightPidControllerId = {0.1,0,0};
+
+} 
 
