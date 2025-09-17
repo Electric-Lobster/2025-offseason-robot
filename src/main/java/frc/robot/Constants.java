@@ -24,7 +24,6 @@ public final class Constants  {
     
     //Currents limits 
     public static final int stallCurrentLimit = 55;
-    
     public static final int freeCurrentLimit = 40;
     
 
