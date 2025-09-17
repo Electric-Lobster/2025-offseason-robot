@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import choreo.auto.AutoChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,7 +20,7 @@ public class RobotContainer {
 
 
   //auto selector
-  SendableChooser<Command> autoChooser = new SendableChooser<>();
+  AutoChooser autoChooser = new AutoChooser();
 
 
   public RobotContainer() {
@@ -39,6 +40,6 @@ public class RobotContainer {
 
 
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return autoChooser.selectedCommand();
   }
 }
