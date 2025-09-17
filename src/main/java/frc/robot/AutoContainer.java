@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import choreo.auto.AutoFactory;
 import frc.robot.SubSystems.DriveTrain;
 
 /** Container for all auto programs */
@@ -11,7 +12,15 @@ public class AutoContainer {
 
     DriveTrain driveTrain;
 
-    public AutoContainer(DriveTrain driveTrain) {
-        this.driveTrain = driveTrain;
+    AutoFactory autoFactory = new AutoFactory(
+        driveTrain::getPose,
+        driveTrain::resetPose,
+        driveTrain::followTrajectory,
+        true,
+        driveTrain
+    );
+
+    public AutoContainer(DriveTrain m_driveTrain) {
+        this.driveTrain = m_driveTrain;
     }
 }
