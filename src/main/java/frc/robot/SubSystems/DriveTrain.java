@@ -84,8 +84,14 @@ public class DriveTrain extends SubsystemBase {
   }
 
 
+  /**
+   * arcade style driving
+   * @param throttle the forward throttle
+   * @param rotation the rotational throttle
+   */
   public void arcadeDrive(double throttle, double rotation) {
-    //TODO: ADD CONTROL
+    FLDrive.set(throttle + rotation);
+    FLDrive.set(throttle - rotation);
   }
 
 
