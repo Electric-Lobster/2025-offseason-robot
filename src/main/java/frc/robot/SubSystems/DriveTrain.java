@@ -73,8 +73,14 @@ public class DriveTrain extends SubsystemBase {
   }
 
 
+  /**
+   * drives the robot in tank style controls
+   * @param left throttle
+   * @param right throttle
+   */
   public void tankDrive(double left, double right) {
-    //TODO: ADD CONTROL
+    FLDrive.set(left);
+    FRDrive.set(right);
   }
 
 
