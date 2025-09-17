@@ -37,11 +37,6 @@ public final class Constants  {
      * 
      */
     public static final double[] leftPidControllerId = {0.1,0,0};
-    
-    
-    /** store the tuning right parameters
-     * 
-     */
     public static final double[] rightPidControllerId = {0.1,0,0};
     
     
