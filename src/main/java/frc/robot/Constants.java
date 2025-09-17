@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.SubSystems.DriveTrain;
-
 
 /** Add your docs here. */
 public final class Constants  {
@@ -24,7 +22,6 @@ public final class Constants  {
     
     //Currents limits 
     public static final int stallCurrentLimit = 55;
-    
     public static final int freeCurrentLimit = 40;
     
 
