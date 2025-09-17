@@ -91,7 +91,7 @@ public class DriveTrain extends SubsystemBase {
    */
   public void arcadeDrive(double throttle, double rotation) {
     FLDrive.set(throttle + rotation);
-    FLDrive.set(throttle - rotation);
+    FRDrive.set(throttle - rotation);
   }
 
 
