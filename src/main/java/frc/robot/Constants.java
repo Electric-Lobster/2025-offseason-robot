@@ -33,9 +33,6 @@ public final class Constants  {
     
 
     //PIDControllId's
-    /** store the turning left parameters 
-     * 
-     */
     public static final double[] leftPidControllerId = {0.1,0,0};
     public static final double[] rightPidControllerId = {0.1,0,0};
     
