@@ -19,8 +19,9 @@ public static final int BLMotor = 3;
 
 public static final int BRMotor = 6;
 
+public static final int stallCurrentLimit = 55;
 
-
+public static final int FreeCurrentLimit = 40;
 } 
 
 
