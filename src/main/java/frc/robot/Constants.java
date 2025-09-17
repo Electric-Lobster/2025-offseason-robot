@@ -11,13 +11,13 @@ public final class Constants {
 
 public static class DrivetrainConstants{}
 
-public static final int FLMotor = 1; 
+public static final int FLMotor = 2; 
 
-public static final int FRMotor = 2;
+public static final int FRMotor = 7;
 
 public static final int BLMotor = 3;
 
-public static final int BRMotor = 4;
+public static final int BRMotor = 6;
 
 
 
