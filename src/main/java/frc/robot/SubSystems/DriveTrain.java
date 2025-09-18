@@ -132,9 +132,9 @@ return speed;
 }
 
 /**Gets left encoder motor speed 
- * @return the average distance of left motors 
+ * @return the average distance of left encoder 
  */
-public double getLeftEncoderDistance() {
+public double getLeftDistance() {
 
   double distance = 0;
   
@@ -147,7 +147,25 @@ public double getLeftEncoderDistance() {
   
   }
 
+  /**Gets left encoder speed  
+ * @return the average speed of left encoders
+ */
+public double getLeftSpeed () {
+
+  double distance = 0;
   
+  distance += FLEncoder.getVelocity();
+  distance += BLEncoder.getVelocity();
+  
+  distance /= 2.0;
+  
+  return distance;
+  
+  }
+
+  
+  
+
 
   @Override
   public void periodic() {
