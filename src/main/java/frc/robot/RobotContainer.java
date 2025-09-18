@@ -5,7 +5,6 @@
 package frc.robot;
 
 import choreo.auto.AutoChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.SubSystems.DriveTrain;

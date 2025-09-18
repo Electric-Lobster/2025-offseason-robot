@@ -206,6 +206,9 @@ public class DriveTrain extends SubsystemBase {
   }
   
   
+  /** Gets right encoder speed  
+   * @return the average speed of right encoder 
+   */
   public double getRightSpeed() {
 
     double speed = 0; 
@@ -218,6 +221,16 @@ public class DriveTrain extends SubsystemBase {
     return speed;
   }
 
+
+  /**
+   * resets encoder distances to 0
+   */
+  public void resetEncoder() {
+    FLEncoder.setPosition(0);
+    FREncoder.setPosition(0);
+    BLEncoder.setPosition(0);
+    BREncoder.setPosition(0);
+  }
   
   /**
    * follows a trajectory for autonomous programs
@@ -256,11 +269,11 @@ public class DriveTrain extends SubsystemBase {
    */
   public Pose2d getPose() {
     double angle = Math.toRadians(getYaw());
-    //TODO: ADD IN ENCODER DISTANCES
-    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(angle), 0, 0, initialPose);
+    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(angle), getLeftDistance(), getRightDistance(), initialPose);
   
     return odometry.getPoseMeters();
   }
+
 
   /**
    * resets the inital pose
@@ -268,7 +281,6 @@ public class DriveTrain extends SubsystemBase {
    */
   public void resetPose(Pose2d newPose) {
     initialPose = newPose;
-    //TODO: Reset Encoder
   }
 
 
