@@ -112,6 +112,24 @@ public class DriveTrain extends SubsystemBase {
     return distance;
   }
 
+  
+/**Gets motor speed 
+ * @return the average speed of motors 
+ */
+public double getEncoderSpeed() {
+
+double speed = 0;
+
+speed += FLEncoder.getVelocity();
+speed += FREncoder.getVelocity();
+speed += BREncoder.getVelocity();
+speed += BLEncoder.getVelocity();
+
+speed /= 4.0;
+
+return speed;
+
+}
 
   @Override
   public void periodic() {
