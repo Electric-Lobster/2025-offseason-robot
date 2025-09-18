@@ -7,13 +7,21 @@ package frc.robot.SubSystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
-import edu.wpi.first.units.measure.Distance;
+import choreo.trajectory.DifferentialSample;
+import edu.wpi.first.math.controller.LTVUnicycleController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -40,6 +48,19 @@ public class DriveTrain extends SubsystemBase {
   //PID
   SparkClosedLoopController leftPID;
   SparkClosedLoopController rightPID;
+
+  //Trajectory controller
+  LTVUnicycleController pathController = new LTVUnicycleController(0.02);
+
+  //Gyro
+  ADIS16470_IMU Gyro = new ADIS16470_IMU();
+
+  //kinematics
+  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(0.60325);
+
+  //Pose
+  Pose2d initialPose = new Pose2d();
+
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -71,6 +92,8 @@ public class DriveTrain extends SubsystemBase {
     // PID Access 
     leftPID = FLDrive.getClosedLoopController();
     rightPID = FRDrive.getClosedLoopController();
+
+    Gyro.calibrate();
   }
 
 
@@ -193,6 +216,76 @@ public double getLeftSpeed() {
     speed /= 2.0;
 
     return speed;
+  }
+
+  
+   * follows a trajectory for autonomous programs
+   * @param sample the current sample of the trajectory
+   */
+  public void followTrajectory(DifferentialSample sample) {
+
+    //gets robot pose
+    Pose2d pose = getPose();
+
+    // velocity from sample
+    ChassisSpeeds ff = sample.getChassisSpeeds();
+
+    //generate next robot speed
+    ChassisSpeeds speeds = pathController.calculate(pose, sample.getPose(), ff.vxMetersPerSecond, ff.omegaRadiansPerSecond);
+
+    DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(speeds);
+    velocityDrive(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+  }
+
+
+  /**
+   * Drives the robots using speed for both sides of the drivetrain
+   * @param leftSpeed left wheel velocity
+   * @param rightSpeed right wheel velocity
+   */
+  private void velocityDrive(double leftSpeed, double rightSpeed) {
+    leftPID.setReference(leftSpeed, ControlType.kVelocity);
+    rightPID.setReference(rightSpeed, ControlType.kVelocity);
+  }
+
+
+  /**
+   * gets the pose of the robot
+   * @return the pose based on the initial pose
+   */
+  public Pose2d getPose() {
+    double angle = Math.toRadians(getYaw());
+    //TODO: ADD IN ENCODER DISTANCES
+    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(angle), 0, 0, initialPose);
+  
+    return odometry.getPoseMeters();
+  }
+
+  /**
+   * resets the inital pose
+   * @param newPose the new iinitial pose
+   */
+  public void resetPose(Pose2d newPose) {
+    initialPose = newPose;
+    //TODO: Reset Encoder
+  }
+
+
+  /**
+   * returns the yaw angle of the robot
+   * @return yaw in degrees
+   */
+  public double getYaw() {
+    return Gyro.getAngle(Gyro.getYawAxis());
+  }
+
+
+  /**
+   * returns yaw speed of the robot
+   * @return degrees per second
+   */
+  public double getYawRate() {
+    return Gyro.getRate(Gyro.getYawAxis());
   }
 
 

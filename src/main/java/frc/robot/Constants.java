@@ -4,14 +4,13 @@
 
 package frc.robot;
 
+
 /** System Constants */
 public final class Constants  {
 
-   
     //Drive train constant 
     public static class DrivetrainConstants{
     
-
         //Motor Id's
         public static final int FLMotorId = 2; 
         public static final int FRMotorId = 7;
@@ -30,10 +29,6 @@ public final class Constants  {
         
         
         //Encoders
-        public static final int countsPerRevolution = 0;
-    
+        public static final int countsPerRevolution = 0; 
     }
-
-
 } 
-
