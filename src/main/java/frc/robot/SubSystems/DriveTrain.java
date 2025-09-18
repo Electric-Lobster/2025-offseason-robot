@@ -13,6 +13,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -171,7 +172,20 @@ public double getLeftSpeed() {
    */
   public double getRightDistance() {
 
-    double speed = 0;
+    double distance = 0;
+
+    distance += FREncoder.getVelocity();
+    distance += BREncoder.getVelocity();
+
+    distance /= 2.0;
+
+    return distance;
+  }
+  
+  
+  public double getRightSpeed() {
+
+    double speed = 0; 
 
     speed += FREncoder.getVelocity();
     speed += BREncoder.getVelocity();
@@ -180,7 +194,6 @@ public double getLeftSpeed() {
 
     return speed;
   }
-  
 
 
   @Override
