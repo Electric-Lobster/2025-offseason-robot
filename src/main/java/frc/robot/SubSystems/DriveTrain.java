@@ -131,6 +131,7 @@ return speed;
 
 }
 
+
 /**Gets left encoder motor speed 
  * @return the average distance of left encoder 
  */
@@ -147,10 +148,11 @@ public double getLeftDistance() {
   
   }
 
+
   /**Gets left encoder speed  
  * @return the average speed of left encoders
  */
-public double getLeftSpeed () {
+public double getLeftSpeed() {
 
   double distance = 0;
   
@@ -163,7 +165,21 @@ public double getLeftSpeed () {
   
   }
 
-  
+
+  /** Gets right distance encoder distance  
+   * @return the average distance of right encoder 
+   */
+  public double getRightDistance() {
+
+    double speed = 0;
+
+    speed += FREncoder.getVelocity();
+    speed += BREncoder.getVelocity();
+
+    speed /= 2.0;
+
+    return speed;
+  }
   
 
 
