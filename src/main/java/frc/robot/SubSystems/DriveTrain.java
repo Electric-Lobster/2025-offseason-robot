@@ -140,54 +140,54 @@ public class DriveTrain extends SubsystemBase {
 /**Gets motor speed 
  * @return the average speed of motors 
  */
-public double getEncoderSpeed() {
+  public double getEncoderSpeed() {
 
-double speed = 0;
+  double speed = 0;
 
-speed += FLEncoder.getVelocity();
-speed += FREncoder.getVelocity();
-speed += BREncoder.getVelocity();
-speed += BLEncoder.getVelocity();
+  speed += FLEncoder.getVelocity();
+  speed += FREncoder.getVelocity();
+  speed += BREncoder.getVelocity();
+  speed += BLEncoder.getVelocity();
 
-speed /= 4.0;
+  speed /= 4.0;
 
-return speed;
+  return speed;
 
-}
+  }
 
 
 /**Gets left encoder motor speed 
  * @return the average distance of left encoder 
  */
-public double getLeftDistance() {
+  public double getLeftDistance() {
 
-  double distance = 0;
+      double distance = 0;
   
-  distance += FLEncoder.getPosition();
-  distance += BLEncoder.getPosition();
+      distance += FLEncoder.getPosition();
+      distance += BLEncoder.getPosition();
   
-  distance /= 2.0;
+     distance /= 2.0;
   
-  return distance;
+      return distance;
   
-  }
+      }
 
 
   /**Gets left encoder speed  
  * @return the average speed of left encoders
  */
-public double getLeftSpeed() {
+  public double getLeftSpeed() {
 
-  double distance = 0;
+    double speed = 0;
   
-  distance += FLEncoder.getVelocity();
-  distance += BLEncoder.getVelocity();
+    speed += FLEncoder.getVelocity();
+    speed += BLEncoder.getVelocity();
   
-  distance /= 2.0;
+    speed /= 2.0;
   
-  return distance;
+    return speed;
   
-  }
+    }
 
 
   /** Gets right distance encoder distance  
