@@ -131,6 +131,24 @@ return speed;
 
 }
 
+/**Gets left encoder motor speed 
+ * @return the average distance of left motors 
+ */
+public double getLeftEncoderDistance() {
+
+  double distance = 0;
+  
+  distance += FLEncoder.getPosition();
+  distance += BLEncoder.getPosition();
+  
+  distance /= 2.0;
+  
+  return distance;
+  
+  }
+
+  
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
