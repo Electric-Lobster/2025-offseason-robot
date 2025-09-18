@@ -65,22 +65,22 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     FLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit,freeCurrentLimit);
-    FLConfig.closedLoop.pid(leftPidControllerId[0],leftPidControllerId[1],leftPidControllerId[2]);
-    FLConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    FLConfig.closedLoop.pid(leftPidController[0],leftPidController[1],leftPidController[2]);
+    FLConfig.encoder.countsPerRevolution(countsPerRevolution);
     FLDrive.configure(FLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     
     FRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit);
-    FRConfig.closedLoop.pid(rightPidControllerId[0],rightPidControllerId[1],rightPidControllerId[2]);
-    FRConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    FRConfig.closedLoop.pid(rightPidController[0],rightPidController[1],rightPidController[2]);
+    FRConfig.encoder.countsPerRevolution(countsPerRevolution);
     FRDrive.configure(FRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     BLConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit).follow(FLDrive);
-    BLConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    BLConfig.encoder.countsPerRevolution(countsPerRevolution);
     BLDrive.configure(BLConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     BRConfig.inverted(true).idleMode(IdleMode.kBrake).smartCurrentLimit(stallCurrentLimit, freeCurrentLimit).follow(FRDrive);
-    BRConfig.encoder.countsPerRevolution(countsPerRevolutionId);
+    BRConfig.encoder.countsPerRevolution(countsPerRevolution);
     BRDrive.configure(BRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // Encoder Access
@@ -97,11 +97,128 @@ public class DriveTrain extends SubsystemBase {
   }
 
 
+  /**
+   * drives the robot in tank style controls
+   * @param left throttle
+   * @param right throttle
+   */
   public void tankDrive(double left, double right) {
-    //TODO: ADD CONTROL
+    FLDrive.set(left);
+    FRDrive.set(right);
   }
 
 
+  /**
+   * arcade style driving
+   * @param throttle the forward throttle
+   * @param rotation the rotational throttle
+   */
+  public void arcadeDrive(double throttle, double rotation) {
+    FLDrive.set(throttle + rotation);
+    FRDrive.set(throttle - rotation);
+  }
+
+
+  /** Gets encoder distance 
+   * @return the average of the drive encoders
+   */
+  public double getEncoderDistance() {
+
+    double distance = 0;
+
+    distance += FLEncoder.getPosition();
+    distance += FREncoder.getPosition();
+    distance += BREncoder.getPosition();
+    distance += BLEncoder.getPosition();
+
+    distance /= 4.0;
+
+    return distance;
+  }
+
+  
+/**Gets motor speed 
+ * @return the average speed of motors 
+ */
+  public double getEncoderSpeed() {
+
+  double speed = 0;
+
+  speed += FLEncoder.getVelocity();
+  speed += FREncoder.getVelocity();
+  speed += BREncoder.getVelocity();
+  speed += BLEncoder.getVelocity();
+
+  speed /= 4.0;
+
+  return speed;
+
+  }
+
+
+/**Gets left encoder motor speed 
+ * @return the average distance of left encoder 
+ */
+  public double getLeftDistance() {
+
+      double distance = 0;
+  
+      distance += FLEncoder.getPosition();
+      distance += BLEncoder.getPosition();
+  
+     distance /= 2.0;
+  
+      return distance;
+  
+      }
+
+
+  /**Gets left encoder speed  
+ * @return the average speed of left encoders
+ */
+  public double getLeftSpeed() {
+
+    double speed = 0;
+  
+    speed += FLEncoder.getVelocity();
+    speed += BLEncoder.getVelocity();
+  
+    speed /= 2.0;
+  
+    return speed;
+  
+    }
+
+
+  /** Gets right distance encoder distance  
+   * @return the average distance of right encoder 
+   */
+  public double getRightDistance() {
+
+    double distance = 0;
+
+    distance += FREncoder.getVelocity();
+    distance += BREncoder.getVelocity();
+
+    distance /= 2.0;
+
+    return distance;
+  }
+  
+  
+  public double getRightSpeed() {
+
+    double speed = 0; 
+
+    speed += FREncoder.getVelocity();
+    speed += BREncoder.getVelocity();
+
+    speed /= 2.0;
+
+    return speed;
+  }
+
+  
   /**
    * follows a trajectory for autonomous programs
    * @param sample the current sample of the trajectory
@@ -177,6 +294,8 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+
 }
 
 
