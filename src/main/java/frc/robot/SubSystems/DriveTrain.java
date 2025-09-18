@@ -220,9 +220,9 @@ public double getLeftSpeed() {
 
   
   /**
-  * follows a trajectory for autonomous programs
-  * @param sample the current sample of the trajectory
-  */
+   * follows a trajectory for autonomous programs
+   * @param sample the current sample of the trajectory
+   */
   public void followTrajectory(DifferentialSample sample) {
 
     //gets robot pose
