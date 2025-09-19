@@ -8,6 +8,7 @@ import choreo.auto.AutoChooser;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Commands.DefaultDrive;
 import frc.robot.SubSystems.DriveTrain;
 
 import static frc.robot.Constants.joystickIds.*;
@@ -40,7 +41,9 @@ public class RobotContainer {
     
     }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    m_DriveTrain.setDefaultCommand(new DefaultDrive(m_DriveTrain, m_leftStick, m_rightStick));
+  }
 
   private void configureChooser() {
 
