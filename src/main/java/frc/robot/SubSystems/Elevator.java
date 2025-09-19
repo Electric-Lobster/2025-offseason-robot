@@ -4,6 +4,7 @@
 
 package frc.robot.SubSystems;
 
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -17,7 +18,12 @@ public class Elevator extends SubsystemBase {
   SparkMax stage2M = new SparkMax(14, MotorType.kBrushless);
 
 
+  //PIDS
+  SparkClosedLoopController stage1PID; 
+  SparkClosedLoopController stage2PID;
 
+
+  
   /** Creates a new Elevator. */
   public Elevator() {}
 
