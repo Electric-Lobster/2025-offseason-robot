@@ -27,14 +27,11 @@ public class Elevator extends SubsystemBase {
   SparkMaxConfig stage1RMConfig = new SparkMaxConfig();
   SparkMaxConfig stage2MConfig = new SparkMaxConfig();
 
-  //
-
-
-
 
   //PIDS
   SparkClosedLoopController stage1PID; 
   SparkClosedLoopController stage2PID;
+
 
   //Encoders
   RelativeEncoder stage1LeftEnc;
@@ -62,8 +59,28 @@ public class Elevator extends SubsystemBase {
     stage1LeftEnc = stage1LeftM.getEncoder();
     stage1RightEnc = stage1RightM.getEncoder();
     stage2Enc = stage2M.getEncoder();
-    
+
   }
+
+  public double getStage1Position() {
+
+  double position = 0;
+
+  position += stage1LeftEnc.getPosition();
+
+   position += stage1RightEnc.getPosition();
+
+   position /=2.0;
+
+   return position;
+  }
+
+  public double getstage2Position() {
+
+    return stage2Enc.getPosition();
+
+  }
+
 
   @Override
   public void periodic() {
