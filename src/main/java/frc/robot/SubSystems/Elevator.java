@@ -8,6 +8,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +20,16 @@ public class Elevator extends SubsystemBase {
   SparkMax stage1LeftM = new SparkMax(4, MotorType.kBrushless);
   SparkMax stage1RightM = new SparkMax(5, MotorType.kBrushless);
   SparkMax stage2M = new SparkMax(14, MotorType.kBrushless);
+
+  //Configuration for motors 
+
+  SparkMaxConfig stage1LMConfig = new SparkMaxConfig();
+  SparkMaxConfig stage1RMConfig = new SparkMaxConfig();
+  SparkMaxConfig stage2MConfig = new SparkMaxConfig();
+
+  //
+
+
 
 
   //PIDS
@@ -31,7 +43,27 @@ public class Elevator extends SubsystemBase {
 
 
   /** Creates a new Elevator. */
-  public Elevator() {}
+  public Elevator() {
+
+    stage1LMConfig.inverted(false).smartCurrentLimit(5,5).idleMode(IdleMode.kBrake);
+    stage1LMConfig.closedLoop.pid(0.1, 0, 0);
+    stage1LMConfig.encoder.positionConversionFactor(0);
+
+    stage1RMConfig.inverted(true).smartCurrentLimit(5,5).idleMode(IdleMode.kBrake).follow(stage1LeftM);
+    stage1RMConfig.encoder.positionConversionFactor(0);
+
+    stage2MConfig.inverted(true).smartCurrentLimit(5,5).idleMode(IdleMode.kBrake);
+    stage2MConfig.closedLoop.pid(0.1, 0, 0);
+    stage2MConfig.encoder.positionConversionFactor(0);
+
+    stage1PID = stage1LeftM.getClosedLoopController();
+    stage2PID = stage2M.getClosedLoopController();
+
+    stage1LeftEnc = stage1LeftM.getEncoder();
+    stage1RightEnc = stage1RightM.getEncoder();
+    stage2Enc = stage2M.getEncoder();
+    
+  }
 
   @Override
   public void periodic() {
