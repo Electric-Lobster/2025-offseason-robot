@@ -26,7 +26,7 @@ public class DefaultDrive extends Command {
     this.rJoystick = rJoystick;
 
     addRequirements(driveTrain);
-    
+
   }
 
   // Called when the command is initially scheduled.
@@ -35,7 +35,11 @@ public class DefaultDrive extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    driveTrain.tankDrive(ljoystick.getY(), rJoystick.getY());
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
