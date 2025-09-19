@@ -13,6 +13,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -31,8 +32,8 @@ public class Elevator extends SubsystemBase {
 
 
   //PIDS
-  SparkClosedLoopController stage1PID; 
-  SparkClosedLoopController stage2PID;
+  PIDController stage1PID = new PIDController(0.1, 0, 0);
+  PIDController stage2PID = new PIDController(0.1,0,0);
 
 
   //Encoders
@@ -45,18 +46,14 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
 
     stage1LMConfig.inverted(false).smartCurrentLimit(5,5).idleMode(IdleMode.kBrake);
-    stage1LMConfig.closedLoop.pid(0.1, 0, 0);
     stage1LMConfig.encoder.positionConversionFactor(0);
 
     stage1RMConfig.inverted(true).smartCurrentLimit(5,5).idleMode(IdleMode.kBrake).follow(stage1LeftM);
     stage1RMConfig.encoder.positionConversionFactor(0);
 
     stage2MConfig.inverted(true).smartCurrentLimit(5,5).idleMode(IdleMode.kBrake);
-    stage2MConfig.closedLoop.pid(0.1, 0, 0);
     stage2MConfig.encoder.positionConversionFactor(0);
 
-    stage1PID = stage1LeftM.getClosedLoopController();
-    stage2PID = stage2M.getClosedLoopController();
 
     stage1LeftEnc = stage1LeftM.getEncoder();
     stage1RightEnc = stage1RightM.getEncoder();
@@ -108,6 +105,18 @@ public class Elevator extends SubsystemBase {
     stage2M.set(throttle);
 
   }
+
+
+  public void setElevatorHeight(double desiredHeight) {
+
+    double stage1DesiredHeight = 25 * (desiredHeight / 41);
+    double stage2DesiredHeight = 16 * (desiredHeight / 41);
+
+    double stageOneThrottle;
+
+
+  }
+
 
   @Override
   public void periodic() {
