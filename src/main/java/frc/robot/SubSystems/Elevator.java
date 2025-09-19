@@ -4,6 +4,8 @@
 
 package frc.robot.SubSystems;
 
+import java.util.Set;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
@@ -64,23 +66,48 @@ public class Elevator extends SubsystemBase {
 
   public double getStage1Position() {
 
-  double position = 0;
+    double position = 0;
 
-  position += stage1LeftEnc.getPosition();
+    position += stage1LeftEnc.getPosition();
 
-   position += stage1RightEnc.getPosition();
+    position += stage1RightEnc.getPosition();
 
-   position /=2.0;
+    position /=2.0;
 
-   return position;
+    return position;
   }
 
-  public double getstage2Position() {
+  public double getStage2Position() {
 
     return stage2Enc.getPosition();
 
   }
 
+  private void setStage1Throttle(double throttle) {
+
+    
+    if (getStage1Position() <= 0 && throttle < 0) {
+      throttle = 0;
+    } else if (getStage1Position() >= 25 && throttle > 0){ // TODO replace with constant 
+      throttle = 0;
+    } 
+    
+    stage1LeftM.set(throttle);
+
+
+  }
+
+  private void setStage2Position(double throttle) {
+
+    if (getStage2Position() <= 0 && throttle < 0) {
+      throttle = 0;
+    } else if (getStage2Position() >= 16 && throttle > 0) { // TODO replace with constant
+      throttle = 0;
+    }
+
+    stage2M.set(throttle);
+
+  }
 
   @Override
   public void periodic() {
