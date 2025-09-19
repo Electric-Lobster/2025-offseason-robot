@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 
 /** System Constants */
 public final class Constants  {
@@ -30,5 +31,23 @@ public final class Constants  {
         
         //Encoders
         public static final int countsPerRevolution = 0; 
+
+        
+
     }
+
+    //Joystickid's
+    public final class joystickIds {
+    
+        //Constants for Id's 
+        public static int leftStickPortId = 0;
+        public static int rightStickPortId = 1;
+        public static int operatorStickPortId = 2;
+
+
+    }
+
+
+
 } 
+    

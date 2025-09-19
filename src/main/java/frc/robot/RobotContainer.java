@@ -10,15 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.SubSystems.DriveTrain;
 
-
-private final Joystick m_leftStick = new Joystick(0);
-  
-private final Joystick m_rightStick = new Joystick(1);
-
-private final Joystick m_operatorStick = new Joystick(2);
-
-
-
+import static frc.robot.Constants.joystickIds.*;
 
 public class RobotContainer {
   //Subsystems
@@ -32,8 +24,13 @@ public class RobotContainer {
   //auto selector
   AutoChooser autoChooser = new AutoChooser();
 
-
+  private final Joystick m_leftStick = new Joystick(leftStickPortId);
   
+  private final Joystick m_rightStick = new Joystick(rightStickPortId);
+  
+  private final Joystick m_operatorStick = new Joystick(operatorStickPortId);
+  
+
   public RobotContainer() {
 
     configureBindings();
