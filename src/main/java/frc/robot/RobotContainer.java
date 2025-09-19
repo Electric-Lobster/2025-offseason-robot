@@ -5,6 +5,7 @@
 package frc.robot;
 
 import choreo.auto.AutoChooser;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.SubSystems.DriveTrain;
@@ -27,8 +28,15 @@ public class RobotContainer {
     configureBindings();
 
     configureChooser();
-  }
 
+    
+    }
+
+  private final Joystick m_leftStick = new Joystick(0);
+  
+  private final Joystick m_rightStick = new Joystick(1);
+
+  private final Joystick m_operatorStick = new Joystick(2);
 
   private void configureBindings() {}
 
