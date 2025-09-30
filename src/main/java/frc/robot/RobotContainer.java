@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Commands.DefaultDrive;
 import frc.robot.SubSystems.DriveTrain;
+import frc.robot.SubSystems.Elevator;
 
 import static frc.robot.Constants.joystickIds.*;
 
@@ -17,6 +18,7 @@ public class RobotContainer {
   //Subsystems
   DriveTrain m_DriveTrain = new DriveTrain();
 
+  Elevator m_Elevator = new Elevator();
 
   //Auto container
   AutoContainer autoContainer = new AutoContainer(m_DriveTrain);
