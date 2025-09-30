@@ -94,7 +94,7 @@ public class Elevator extends SubsystemBase {
 
   }
 
-  private void setStage2Position(double throttle) {
+  private void setStage2Throttle(double throttle) {
 
     if (getStage2Position() <= 0 && throttle < 0) {
       throttle = 0;
@@ -112,10 +112,17 @@ public class Elevator extends SubsystemBase {
     double stage1DesiredHeight = 25 * (desiredHeight / 41);
     double stage2DesiredHeight = 16 * (desiredHeight / 41);
 
-    double stageOneThrottle;
+    double stageOneThrottle = stage1PID.calculate(getStage1Position(),stage1DesiredHeight);
+
+    double stageTwoThrottle = stage2PID.calculate(getStage2Position(),stage2DesiredHeight);
+
+    setStage1Throttle(stageOneThrottle);
+
+    setStage2Throttle(stageTwoThrottle);
 
 
   }
+
 
 
   @Override
